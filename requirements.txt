@@ -1,0 +1,21 @@
+# Tipping Point Lab – Python requirements
+# Install with: pip install -r requirements.txt
+
+Django>=4.2,<5.0
+djangorestframework>=3.14
+django-cors-headers>=4.3
+psycopg2-binary>=2.9        # PostgreSQL adapter
+
+# Environment variable loading
+python-dotenv>=1.0
+
+# CSV / data processing
+pandas>=2.0
+
+# Optional: similarity search for Media Literacy Lab (Phase 5)
+# scikit-learn>=1.3           # TF-IDF vectorizer
+# sentence-transformers>=2.2  # BERT-based similarity (heavier, needs torch)
+
+# Dev / testing
+pytest-django>=4.7
+factory-boy>=3.3
