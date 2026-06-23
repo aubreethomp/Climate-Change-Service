@@ -5,26 +5,26 @@ Django REST Framework backend — powers the Next.js frontend.
 
 ---
 
-## Quick start
+## Local Run
 
 ```bash
 # 1. Create and activate a virtual environment
 python -m venv .venv
-source .venv/bin/activate          # Windows: .venv\Scripts\activate
+.venv\Scripts\activate
 
 # 2. Install dependencies
 pip install -r requirements.txt
 
-# 3. Configure your database
-#    Edit config/settings.py – PostgreSQL is the default.
+# 3. Configure database for Django Models
+#    Edit config/settings.py 
 #    For local zero-config dev, uncomment the SQLite block.
 
 # 4. Run migrations
 python manage.py migrate
 
 # 5. Seed the database
-python manage.py seed_tipping_points   # loads CSV → TippingPoint + relationships
-python manage.py seed_metrics          # stat cards, CO₂ data, simulation scenarios
+python manage.py seed_tipping_points   
+python manage.py seed_metrics          
 
 # 6. (Optional) create a superuser for /admin
 python manage.py createsuperuser
@@ -166,17 +166,13 @@ All values 0–100.
 
 ---
 
-## Next steps (Phase 2 → 3)
+## TODO: Next steps 
 
 - **Phase 3 (Frontend):** Wire the API into Next.js/React components. Start with the Tipping Point Explorer grid and detail pages.
 - **Phase 5 (Claims data):** Download CLIMATE-FEVER JSON and write an import management command for ClimateClaim + EvidenceSentence. A starter loader shell is already scaffolded.
 - **Phase 5 (Similarity search):** Swap the `claims/search/` keyword search for TF-IDF (`scikit-learn`) or sentence-transformer embeddings once the claims dataset is loaded.
 - **Production:** Replace SQLite with PostgreSQL, set `DEBUG=False`, move `SECRET_KEY` to env var, add `gunicorn` + `nginx`.
 
----
 
-## Disclaimer
-
-This application is an educational simulation, not a predictive climate model.
 Tipping-point relationships and scoring logic are intentionally simplified to demonstrate
 cascading dynamics. All scientific references are provided for further reading.
