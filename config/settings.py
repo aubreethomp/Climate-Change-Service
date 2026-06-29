@@ -23,10 +23,8 @@ except ImportError:
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-SECRET_KEY = os.environ.get(
-    'SECRET_KEY',
-    'django-insecure-replace-this-before-deploying-to-production',
-)
+SECRET_KEY = os.environ.get('SECRET_KEY')
+
 
 DEBUG = os.environ.get('DEBUG', 'True') == 'True'
 
@@ -47,12 +45,13 @@ INSTALLED_APPS = [
     'apps.tipping_points',
     'apps.claims',
     'apps.simulator',
-    'apps.metrics',
+    'apps.metrics'
 ]
 
 MIDDLEWARE = [
     'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -127,19 +126,10 @@ REST_FRAMEWORK = {
     ],
 }
 
+ALLOWED_HOSTS = ['the-threshold.up.railway.app', 'your-frontend.vercel.app']
 
-_FRONTEND_URL = os.environ.get('FRONTEND_URL', 'http://localhost:3000')
-
-CORS_ALLOWED_ORIGINS = [
-    _FRONTEND_URL,
-    'http://localhost:3000',
-    'http://127.0.0.1:3000',
-]
-# Deduplicate
-CORS_ALLOWED_ORIGINS = list(dict.fromkeys(CORS_ALLOWED_ORIGINS))
-
-# In DEBUG mode also allow all origins so the browsable API works from any port
-CORS_ALLOW_ALL_ORIGINS = DEBUG
+_frontend_url = os.environ.get('FRONTEND_URL', 'http://localhost:3000')
+CORS_ALLOWED_ORIGINS = [_frontend_url]
 
 STATIC_URL  = '/static/'
 STATIC_ROOT = BASE_DIR / 'staticfiles'
@@ -150,3 +140,5 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 DATA_DIR = BASE_DIR / 'data'
 SEED_CSV  = DATA_DIR / 'tipping_point_seed_data.csv'
+
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
