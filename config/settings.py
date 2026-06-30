@@ -126,8 +126,6 @@ REST_FRAMEWORK = {
     ],
 }
 
-ALLOWED_HOSTS = ['climate-change-service-production.up.railway.app', 'your-frontend.vercel.app']
-
 _frontend_url = os.environ.get('FRONTEND_URL', 'http://localhost:3000')
 CORS_ALLOWED_ORIGINS = [_frontend_url]
 
